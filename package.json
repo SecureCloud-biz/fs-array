@@ -1,6 +1,6 @@
 {
   "name": "fs-array",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "My own, custom fs functions that work great with arrays even though they are not suitable for concurrency",
   "main": "index.js",
   "scripts": {
