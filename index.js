@@ -17,14 +17,28 @@ const noFail = fn => (...args) => {
 
 const join = (...args) => abs(path.join(...args));
 
+
+const dir = (name = '.') => fs.readdirSync(abs(name)).map(file => join(name, file));
+const exists = name => fs.existsSync(abs(name));
+const mkdir = noFail(name => fs.mkdirSync(abs(name)));
+const read = (name = '.') => fs.readFileSync(abs(name), 'utf-8');
+const stat = (name = '.') => fs.lstatSync(abs(name));
+const write = noFail((file, body) => fs.writeFileSync(abs(file), body, 'utf-8'));
+
+// Walk the walk (list all dirs and subdirectories)
+const walk = (name = '.') => dir(abs(name))
+  .map(src => stat(src).isFile() ? [src] : walk(src))
+  .reduce((all, arr) => all.concat(arr), []);
+
 // My own, "easier" fs. Sync since there is no multirequests
 module.exports = {
   abs,
-  dir: (name = '.') => fs.readdirSync(abs(name)).map(file => join(name, file)),
-  exists: name => fs.existsSync(abs(name)),
+  dir,
+  exists,
   join,
-  mkdir: noFail(name => fs.mkdirSync(abs(name))),
-  read: (name = '.') => fs.readFileSync(abs(name), 'utf-8'),
-  stat: (name = '.') => fs.lstatSync(abs(name)),
-  write: noFail((file, body) => fs.writeFileSync(abs(file), body, 'utf-8')),
+  mkdir,
+  read,
+  stat,
+  walk,
+  write
 };
