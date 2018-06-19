@@ -27,7 +27,7 @@ const write = noFail((file, body) => fs.writeFileSync(abs(file), body, 'utf-8'))
 
 // Walk the walk (list all dirs and subdirectories)
 const walk = (name = '.') => dir(abs(name))
-  .map(src => stat(src).isFile() ? [src] : walk(src))
+  .map(src => stat(src).isFile() ? [src] : stat(src).isDirectory() ? walk(src) : [])
   .reduce((all, arr) => all.concat(arr), []);
 
 // My own, "easier" fs. Sync since there is no multirequests
