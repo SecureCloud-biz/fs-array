@@ -4,7 +4,7 @@
   "description": "My own, custom fs functions that work great with arrays even though they are not suitable for concurrency",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No testing :(\""
   },
   "keywords": [],
   "author": "",
