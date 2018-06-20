@@ -1,6 +1,6 @@
 # File System Array
 
-**Blocking** filesystem with very simple API specifically designed to be usable with arrays easily. Features:
+**Blocking** filesystem with very simple API specifically designed to be usable with arrays. Features:
 
 - Return absolute paths where possible.
 - Defaults to `'utf-8'` so no need to specify it. Won't return Buffers.
