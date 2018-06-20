@@ -1,4 +1,4 @@
-// Make Sync the new Async, with sane utf-8 defaults and absolute paths
+// Make Sync the new Async, with utf-8 defaults and absolute paths
 const fs = require('fs');
 const path = require('path');
 
@@ -7,17 +7,11 @@ const abs = (name = '.', base = process.cwd()) =>
 
 // Method for those functions that are an action and we don't want them to fail
 const noFail = fn => (...args) => {
-  try {
-    // Return true-ish if it doesn't fail
-    return fn(...args);
-  } catch (err) {
-    return err;
-  }
+  try { return fn(...args); } catch (err) { return err; }
 };
 
 const join = (...args) => abs(path.join(...args));
-
-
+const name = path.basename;  // Get the path's filename
 const dir = (name = '.') => fs.readdirSync(abs(name)).map(file => join(name, file));
 const exists = name => fs.existsSync(abs(name));
 const mkdir = noFail(name => fs.mkdirSync(abs(name)));
@@ -31,14 +25,4 @@ const walk = (name = '.') => dir(abs(name))
   .reduce((all, arr) => all.concat(arr), []);
 
 // My own, "easier" fs. Sync since there is no multirequests
-module.exports = {
-  abs,
-  dir,
-  exists,
-  join,
-  mkdir,
-  read,
-  stat,
-  walk,
-  write
-};
+module.exports = { abs, dir, exists, join, mkdir, name, read, stat, walk, write };
