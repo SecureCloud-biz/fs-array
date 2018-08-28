@@ -1,5 +1,7 @@
 # File System Array
 
+> Deprecated. Use [`fs-promises`](https://www.npmjs.com/package/fs-promises) instead of this for a similar syntax but much more amazing performance.
+
 **Blocking** filesystem with very simple API specifically designed to be usable with arrays. Features:
 
 - Return absolute paths where possible.
